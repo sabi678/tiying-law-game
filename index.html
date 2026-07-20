@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#6f251f">
+  <title>缇萦上书：肉刑存废之辩</title>
+  <style>
+    :root{--ink:#29221d;--paper:#efe0bd;--light:#fff9e9;--red:#862e25;--jade:#315f54;--gold:#b88a3b;--muted:#75675c}
+    *{box-sizing:border-box}html{background:#20252b}body{margin:0;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",sans-serif;min-height:100vh}
+    button{font:inherit}.game{width:min(100%,880px);min-height:100vh;margin:auto;padding:clamp(18px,5vw,44px);background:linear-gradient(90deg,#862e2510 1px,transparent 1px),var(--paper);background-size:34px 100%;border-inline:8px solid #49241f;box-shadow:0 0 40px #0008}
+    .top{text-align:center}.top h1{font:800 clamp(34px,8vw,58px)/1.2 KaiTi,STKaiti,serif;color:var(--red);margin:12px 0 4px}.subtitle{color:var(--muted);letter-spacing:.12em;margin:0 0 18px}.seal{width:64px;height:64px;margin:auto;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font:700 36px KaiTi,serif}
+    .progress{height:8px;border-radius:10px;background:#cdbb98;overflow:hidden;margin:20px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));transition:width .35s}
+    .scene{display:none;animation:rise .3s ease}.scene.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+    .card{background:#fff9;border:1px solid #cfb98d;border-radius:14px;padding:clamp(18px,4vw,30px);box-shadow:0 8px 22px #53361916}.card h2{font-family:KaiTi,serif;color:var(--red);font-size:clamp(25px,6vw,36px);margin-top:0}
+    p,li{line-height:1.8}.character{font-weight:800;color:var(--red)}.court{background:#315f5413;border-left:5px solid var(--jade);padding:10px 16px;margin:16px 0;border-radius:4px}.law{background:#fff2b9;border-left:5px solid var(--gold);padding:13px 16px;margin:18px 0;border-radius:4px}.law strong{color:#765316}.evidence{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}.evidence div{background:#ede2ca;border:1px solid #cdb98d;border-radius:8px;padding:12px;font-size:14px}
+    .choices{display:grid;gap:11px;border-top:1px solid #d7c5a2;margin-top:22px;padding-top:18px}.choices button,.restart{border:0;border-radius:10px;background:var(--jade);color:#fff;text-align:left;padding:15px 17px;line-height:1.55;font-weight:700;cursor:pointer;box-shadow:0 4px 0 #24483f}.choices button:active,.restart:active{transform:translateY(3px);box-shadow:0 1px 0 #24483f}.choices small{display:block;color:#dceae5;margin-top:4px;font-weight:400}
+    .ending{text-align:center}.ending .badge{display:inline-block;border:2px solid currentColor;border-radius:99px;padding:6px 16px;font-weight:800}.good{background:#e5f1e5}.good h2,.good .badge{color:#32643b}.neutral{background:#e7edf1}.neutral h2,.neutral .badge{color:#365b72}.bad{background:#f4e2df}.bad h2,.bad .badge{color:#8b3029}.restart{text-align:center;margin-top:18px;min-width:160px}.review{text-align:left;background:#fff8;padding:14px 18px;border-radius:9px;margin-top:18px}
+    footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+    @media(max-width:600px){.game{border-inline-width:5px;padding:15px 12px 30px}.evidence{grid-template-columns:1fr}.card{padding:18px 15px}.choices button{min-height:66px}}
+  </style>
+</head>
+<body>
+<main class="game">
+  <header class="top"><div class="seal">汉</div><h1>缇萦上书</h1><p class="subtitle">肉刑存废之辩 · 公元前167年</p></header>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+
+  <section id="s0" class="scene active"><div class="card">
+    <h2>卷宗启封</h2>
+    <div class="court"><b>长安 · 未央宫</b></div>
+    <p>齐国太仓令淳于意获罪，当受肉刑，被押解长安。其幼女缇萦随父入京，上书汉文帝，愿没入为官婢以赎父刑。</p>
+    <p><span class="character">缇萦：</span>“死者不可复生，刑者不可复属。虽欲改过自新，其道莫由。”</p>
+    <p>你是廷尉新任属官。文帝命群臣讨论：肉刑究竟应当保留、废除，还是改造？你的意见将影响这场法制改革。</p>
+    <div class="law"><strong>法制史焦点</strong><br>汉初刑制承袭秦制。缇萦上书推动汉文帝下诏废除肉刑，但替代刑在执行中也产生新的严酷问题。</div>
+    <div class="choices"><button onclick="go('s1',12)">进入朝议，审查案卷</button></div>
+  </div></section>
+
+  <section id="s1" class="scene"><div class="card">
+    <h2>第一议：如何理解旧刑</h2>
+    <p><span class="character">廷尉正：</span>“黥、劓、刖，使罪人终身蒙耻，足以警众。骤然废除，恐刑威不立。”</p>
+    <div class="evidence"><div><b>旧制功能</b><br>以身体标记和残损实现惩罚、威慑与身份区隔。</div><div><b>核心代价</b><br>身体损害不可逆，罪人即便悔改也难以回归社会。</div></div>
+    <div class="choices">
+      <button onclick="go('s2a',30)">主张立即废除<small>人格与身体不可恢复，制度应给改过者留下出路</small></button>
+      <button onclick="go('s2b',30)">主张维持旧刑<small>乱世余患未消，威慑与秩序应当优先</small></button>
+      <button onclick="go('s2c',30)">主张附条件改革<small>先区分罪责，再设计可复归社会的替代刑</small></button>
+    </div>
+  </div></section>
+
+  <section id="s2a" class="scene"><div class="card">
+    <h2>第二议：替代刑的难题</h2>
+    <p>文帝赞同废除肉刑，但丞相追问：“不用黥、劓、刖，以何刑替代，方能做到罪刑相当？”</p>
+    <div class="law"><strong>历史知识</strong><br>文帝改革以髡钳、笞刑等替代部分肉刑。改革方向具有进步意义，但笞刑数量过重、执行标准不一，可能造成死亡。</div>
+    <div class="choices">
+      <button onclick="go('s3a',56)">以高次数笞刑统一替代<small>形式简明，但执行风险很高</small></button>
+      <button onclick="go('s3b',56)">分级替代并限制执行<small>按罪责配置刑罚，设置次数与行刑规范</small></button>
+    </div>
+  </div></section>
+
+  <section id="s2b" class="scene"><div class="card">
+    <h2>第二议：刑威与教化</h2>
+    <p><span class="character">御史大夫：</span>“秦法以严酷求治，却二世而亡。若只讲威慑，如何解释暴秦之鉴？”</p>
+    <div class="law"><strong>分析提示</strong><br>评价古代刑制既要理解维护秩序的现实需求，也要考察刑罚是否过度、能否促使罪人改过。</div>
+    <div class="choices">
+      <button onclick="go('eBad',100)">坚持重刑本身即可止乱</button>
+      <button onclick="go('s3c',56)">修正观点：保留秩序目标，但推动刑罚可恢复化</button>
+    </div>
+  </div></section>
+
+  <section id="s2c" class="scene"><div class="card">
+    <h2>第二议：拟定改革原则</h2>
+    <p>文帝命你将“附条件改革”写成可执行方案。你必须选定首要原则。</p>
+    <div class="choices">
+      <button onclick="go('s3b',56)">罪责分级、限制行刑、保留复归可能</button>
+      <button onclick="go('s3a',56)">所有肉刑一律折算为固定笞数</button>
+      <button onclick="go('s3d',56)">只赦免淳于意，不改变一般制度</button>
+    </div>
+  </div></section>
+
+  <section id="s3a" class="scene"><div class="card">
+    <h2>第三议：改革后的伤亡</h2>
+    <p>新制推行后，地方奏报：有罪人虽免肉刑，却因笞数过重、行刑无度而死。</p>
+    <p><span class="character">狱吏：</span>“名为减刑，受刑者反不得全生。朝廷是否修正？”</p>
+    <div class="choices">
+      <button onclick="go('eNeutral',100)">承认缺陷，等待以后逐步调整</button>
+      <button onclick="go('s4',78)">立即调查，降低笞数并规范刑具与行刑部位</button>
+    </div>
+  </div></section>
+
+  <section id="s3b" class="scene"><div class="card">
+    <h2>第三议：从诏令到执行</h2>
+    <p>你的分级方案获得认可，但地方官担心标准复杂、执行不一。制度善意若缺乏程序约束，仍可能异化。</p>
+    <div class="choices">
+      <button onclick="go('s4',78)">建立复核、记录和行刑限制，并定期检查成效</button>
+      <button onclick="go('eNeutral',100)">只颁布原则，具体执行完全交给地方</button>
+    </div>
+  </div></section>
+
+  <section id="s3c" class="scene"><div class="card">
+    <h2>第三议：有限改革</h2>
+    <p>你不再把“严酷”等同于“有效”，转而主张在秩序与人道之间寻找可检验的平衡。</p>
+    <div class="choices">
+      <button onclick="go('s4',78)">用执行数据检验替代刑，并保留继续修法的机制</button>
+      <button onclick="go('eNeutral',100)">仅在诏书中倡导仁政，不设置执行措施</button>
+    </div>
+  </div></section>
+
+  <section id="s3d" class="scene"><div class="card">
+    <h2>第三议：个案与制度</h2>
+    <p>淳于意可能因上书得到宽宥，但同类罪人仍面对同样的不可逆刑罚。</p>
+    <div class="law"><strong>案例分析方法</strong><br>个案救济可以纠正一次不公；制度改革则要识别造成反复问题的规则与执行结构。</div>
+    <div class="choices">
+      <button onclick="go('s4',78)">由个案反思一般规则，重新提交改革方案</button>
+      <button onclick="go('eBad',100)">个案已经解决，无须再议刑制</button>
+    </div>
+  </div></section>
+
+  <section id="s4" class="scene"><div class="card">
+    <h2>终议：呈交廷议奏章</h2>
+    <p>你将在奏章中如何概括此次改革？</p>
+    <div class="choices">
+      <button onclick="go('eBest',100)">废肉刑不是终点；刑罚须兼顾罪责、执行可控与改过复归</button>
+      <button onclick="go('eGood',100)">以仁政废除残酷刑罚，后续问题再随实践修正</button>
+      <button onclick="go('eNeutral',100)">只要名称不再叫肉刑，改革便已完成</button>
+    </div>
+  </div></section>
+
+  <section id="eBest" class="scene"><div class="card ending good"><span class="badge">卓越结局</span><h2>刑制改革者</h2><p>你的奏章推动朝廷在废除肉刑的同时，关注替代刑的比例、执行与复核。改革不再停留于仁政口号，而成为可以持续修正的制度工程。</p><div class="review"><b>法制史复盘</b><ul><li>缇萦上书体现个案对制度变革的推动。</li><li>文帝废肉刑具有进步意义，但替代刑也可能产生新的严酷。</li><li>评价改革不能只看名称和初衷，还要考察实际执行效果。</li></ul></div><button class="restart" onclick="restart()">重新体验</button></div></section>
+  <section id="eGood" class="scene"><div class="card ending good"><span class="badge">良好结局</span><h2>仁政进路</h2><p>朝廷迈出了废除肉刑的重要一步。你看到了刑罚人道化的方向，但对替代刑执行风险的处理仍不充分。</p><div class="review"><b>提升建议：</b>案例分析时同时追问“为什么改革”“如何执行”“造成何种后果”。</div><button class="restart" onclick="restart()">重新体验</button></div></section>
+  <section id="eNeutral" class="scene"><div class="card ending neutral"><span class="badge">中性结局</span><h2>未竟之改</h2><p>肉刑名义上被废除，但替代刑的严酷与地方执行差异仍然存在。制度发生了变化，却尚未实现改革目标。</p><div class="review"><b>关键启示：</b>法制改革的文本目标与实践结果可能存在距离。</div><button class="restart" onclick="restart()">重新体验</button></div></section>
+  <section id="eBad" class="scene"><div class="card ending bad"><span class="badge">警示结局</span><h2>严刑之困</h2><p>朝议最终回到“刑罚越重越有效”的单一路径。个案揭示的问题没有转化为制度反思，秦制严酷的历史教训也未得到回应。</p><div class="review"><b>复习方向：</b>比较秦汉刑制变化，理解德主刑辅、约法省刑与社会治理之间的关系。</div><button class="restart" onclick="restart()">重新体验</button></div></section>
+  <footer>教学化历史模拟 · 情节用于法制史案例分析，不等同于真实汉代廷议程序</footer>
+</main>
+<script>
+  function go(id,p){document.querySelector('.scene.active').classList.remove('active');document.getElementById(id).classList.add('active');document.getElementById('bar').style.width=p+'%';scrollTo({top:0,behavior:'smooth'})}
+  function restart(){document.querySelector('.scene.active').classList.remove('active');document.getElementById('s0').classList.add('active');document.getElementById('bar').style.width='0%';scrollTo({top:0,behavior:'smooth'})}
+</script>
+</body></html>

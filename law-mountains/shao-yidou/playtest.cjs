@@ -112,7 +112,7 @@ async function testRecovery(browser) {
 
 async function testSiteEntry(browser) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  await page.goto("http://127.0.0.1:8770/law-mountains/", { waitUntil: "load" });
+  await page.goto(new URL("../", url).toString(), { waitUntil: "load" });
   assert.equal(await page.locator('a[href="./shao-yidou/"]').count(), 2);
   await page.locator("#title .shao-entry-link").click();
   await page.waitForURL(/shao-yidou/);

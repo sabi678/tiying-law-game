@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#151a18">
+  <title>少了一斗的粟 · 教学游戏</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-shell">
+    <header class="topbar">
+      <div class="brand"><strong>少了一斗的粟</strong><span>秦朝案件 · 教学虚构</span></div>
+      <div class="top-actions"><a class="back-link" href="../" title="返回十案录" aria-label="返回十案录">←</a><span id="progress" aria-live="polite">01 / 09</span><button type="button" id="journal" title="查看案卷">案卷</button><button type="button" id="restart" title="重新开始游戏">重开</button></div>
+    </header>
+    <main class="stage" id="stage">
+      <img class="scene-image" id="scene-image" src="assets/场景/S01_县署受理处.webp" alt="县署受理处">
+      <div class="scene-shade"></div>
+      <div class="place-line"><span id="place">秦朝某县 · 县署受理处</span><span id="moment">买主前来告发</span></div>
+      <img class="portrait" id="portrait" src="assets/人物/R2_孟庸.webp" alt="孟庸">
+      <div class="world-prompt" id="world-prompt" hidden></div>
+      <section class="dialogue" aria-live="polite">
+        <div class="dialogue-meta"><span id="scene-count">第一幕</span><span id="scene-objective">听清告发</span></div>
+        <h1 id="speaker">孟庸</h1>
+        <p class="speech" id="speech"></p>
+        <div class="interaction" id="interaction"></div>
+      </section>
+    </main>
+    <footer class="footer"><span>历史叙事美术并非出土文物 · 案情为教学虚构</span><span>春秋、战国、秦朝对照各有时代标识</span></footer>
+  </div>
+  <div class="overlay" id="overlay" hidden>
+    <section class="overlay-panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+      <div class="overlay-head"><h2 id="overlay-title"></h2><button type="button" id="overlay-close" aria-label="关闭">×</button></div>
+      <div class="overlay-body" id="overlay-body"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

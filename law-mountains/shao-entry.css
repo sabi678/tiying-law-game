@@ -1,0 +1,8 @@
+.shao-entry-link{display:inline-flex;align-items:center;text-decoration:none;border:1px solid #b49260;background:#213b33d9;color:#f1e4c6}
+.shao-entry-link:hover,.shao-entry-link:focus-visible{background:#31594b;color:#fff;outline:2px solid #d4b777;outline-offset:2px}
+.shao-map-link{width:min(600px,calc(100% - 28px));display:flex;align-items:center;gap:12px;margin:18px auto 0;padding:13px 16px;text-align:left;text-decoration:none;color:#f3e6cd;background:#244039;border:1px solid #b79763}
+.shao-map-link strong{font:700 21px KaiTi,serif;white-space:nowrap}
+.shao-map-link span:nth-child(2){flex:1;color:#d4c6ae;font-size:12px}
+.shao-map-link span:last-child{color:#e0bd7c;white-space:nowrap;font-size:12px}
+.shao-map-link:hover,.shao-map-link:focus-visible{background:#31594b;outline:2px solid #d4b777;outline-offset:2px}
+@media(max-width:560px){.shao-map-link{flex-wrap:wrap}.shao-map-link span:nth-child(2){flex-basis:100%;order:3}.shao-map-link span:last-child{margin-left:auto}}

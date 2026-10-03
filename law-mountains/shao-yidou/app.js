@@ -179,7 +179,14 @@ function drawFinish() {
   interaction.innerHTML = `<div class="finish-question">你的处理：${{ A: "草率重罚", B: "审慎处理", C: "列明疑点继续查验", D: "只补损失" }[state.ending]}</div>${note(`你给双方的理由：${escapeHtml(state.reason)}`)}${note(`你选择的改进：${escapeHtml(measuresText)}。`)}${action("在案卷中回看所有选择", "journal", true)}${action("重玩，比较另一条路径", "restart")}`;
 }
 const renderers = { buyer: drawBuyer, buyerReply: drawBuyerReply, inspect: drawInspect, encounter: drawEncounter, encounterReply: drawEncounterReply, tian: drawTian, tianReply: drawTianReply, clerk: drawClerk, clerkReply: drawClerkReply, hearing: drawHearing, inquiry: drawInquiry, explain: drawExplain, outcomeBuyer: () => drawOutcome("buyer", "outcomeTian"), outcomeTian: () => drawOutcome("tian", "outcomeFamily"), outcomeFamily: () => drawOutcome("family", "future"), future: drawFuture, reform: drawReform, eraSpring: drawEraSpring, eraWarring: drawEraWarring, eraQin: drawEraQin, reveal: drawReveal, finish: drawFinish };
-function render() { state.error = state.error || ""; renderers[state.step](); save(); }
+function render() {
+  if (!Object.prototype.hasOwnProperty.call(renderers, state.step) || !Array.isArray(state.logs) || !Array.isArray(state.selected) || !state.era || typeof state.era !== "object") {
+    state = initial();
+  }
+  state.error = state.error || "";
+  renderers[state.step]();
+  save();
+}
 
 function openOverlay(title, body) {
   $("overlay-title").textContent = title;

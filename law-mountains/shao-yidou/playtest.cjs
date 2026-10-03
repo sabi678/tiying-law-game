@@ -1,4 +1,5 @@
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
 const path = require("node:path");
 let chromium;
 try { ({ chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright")); }
@@ -24,7 +25,11 @@ async function frame(page, label) {
   assert.equal(result.panel, true, `${label}: clipped panel ${result.bounds}`);
 }
 async function click(page, id) { await page.locator(`[data-action="${id}"]`).click(); }
-async function shot(page, file) { await page.screenshot({ path: path.join(__dirname, file) }); }
+async function shot(page, file) {
+  const dir = process.env.SCREENSHOT_DIR || __dirname;
+  fs.mkdirSync(dir, { recursive: true });
+  await page.screenshot({ path: path.join(dir, file) });
+}
 async function card(page, id) {
   await page.locator(`[data-card="${id}"]`).click();
   assert.match(await page.locator("#overlay-body").innerText(), /可核实史实/);
@@ -123,9 +128,27 @@ async function testSiteEntry(browser) {
   await page.close();
 }
 
+async function testInvalidSavedProgress(browser) {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await page.goto(url, { waitUntil: "load" });
+  await page.evaluate(() => localStorage.setItem("shaoyidou-full-v1", JSON.stringify({ version: 1, step: "missing-stage", logs: [] })));
+  await page.reload({ waitUntil: "load" });
+  assert.match(await page.locator("#speaker").innerText(), /孟庸/);
+  assert.equal(await page.locator('[data-action="buyer:loss"]').isEnabled(), true);
+  assert.deepEqual(errors, []);
+  await page.close();
+}
+
 (async () => {
   const browser = await chromium.launch({ headless: true, executablePath: process.env.BROWSER_PATH || "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" });
   try {
+    if (process.argv.includes("--storage-only")) {
+      await testInvalidSavedProgress(browser);
+      console.log("PASS: invalid saved stage recovers to the playable opening");
+      return;
+    }
     const b = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await start(b, { buyer: "rules", route: "road", encounter: "scope", tian: "open", clerk: "full" }, "桌面B");
     assert.equal(await b.locator('[data-action="verdict:B"]').isEnabled(), true);
@@ -150,6 +173,7 @@ async function testSiteEntry(browser) {
     await d.close();
     await testRecovery(browser);
     await testSiteEntry(browser);
+    await testInvalidSavedProgress(browser);
     console.log("PASS: four endings, source cards, era boundaries, desktop 1440 and mobile 390/320");
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

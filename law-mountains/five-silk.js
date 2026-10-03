@@ -101,6 +101,25 @@
     ['《唐律疏议》卷二十·共盗并赃论','https://zh.wikisource.org/wiki/唐律疏議/卷第二十'],
     ['《唐律疏议》卷五·自首、首露、首从','https://zh.wikisource.org/wiki/唐律疏議/卷第五']
   ];
+  // Teaching notes are optional reading. They never change a choice or saved progress.
+  const lawCards = {
+    theft: {title:'窃盗五匹的初步刑等',rule:'《唐律疏议》以赃值分等：窃盗五匹，徒一年。这是初看案情的刑等，还须核对共犯、首从与自首。',fact:'确认取走的是五匹原绢，并核实为秘密取走他人财物。',mistake:'把初步刑等直接当作沈安的最终结果。',source:'《唐律疏议》卷十九·窃盗',url:'https://zh.wikisource.org/wiki/唐律疏議/卷第十九'},
+    joint: {title:'共盗并赃',rule:'共同盗取财物时，合并全案赃数论罪；各人分到多少，不能代替共同取走的总数。',fact:'查明沈安与胡七共同取走五匹，沈安得一匹、胡七得四匹。',mistake:'只按沈安分得的一匹计算全案赃数。',source:'《唐律疏议》卷二十·共盗并赃论',url:'https://zh.wikisource.org/wiki/唐律疏議/卷第二十'},
+    roles: {title:'造意为首与随从减等',rule:'共犯罪以造意者为首，随从者减一等；开库门是参与行为，谁先谋划仍要另行查明。',fact:'核对胡七先提出计划、接应并取走四匹，沈安依其计划开门。',mistake:'仅凭谁亲手开门就认定谁是首犯，或因沈安救母便认定其无罪。',source:'《唐律疏议》卷五·共犯罪',url:'https://zh.wikisource.org/wiki/唐律疏議/卷第五'},
+    surrender: {title:'犯罪未发而自首',rule:'犯罪尚未被发觉时主动如实首露，依律原其罪。是否“未发”、是否如实，均须核查。',fact:'核对沈安首露时杜承远尚未知失绢，且说出两人共取五匹、各自去向。',mistake:'把被发现后的承认等同未发自首；或只听沈安一面之词便认定时刻。',source:'《唐律疏议》卷五·犯罪未发自首',url:'https://zh.wikisource.org/wiki/唐律疏議/卷第五'},
+    owner: {title:'向财主首露',rule:'盗取财物后向财主首露，律文视同向官府自首；首露对象与说出的内容都影响适用。',fact:'核对沈安先向财主杜承远说明共取五匹及胡七的四匹，留有当晚字据和旁证。',mistake:'以“没有先去县署”为由一概否定自首，或将字据存在本身当作充分证明。',source:'《唐律疏议》卷五·于财主首露',url:'https://zh.wikisource.org/wiki/唐律疏議/卷第五'},
+    restitution: {title:'正赃仍须追还',rule:'自首可以原罪，但“正赃犹征如法”；刑责从宽并不消灭财主取回原物的权利。',fact:'核验沈安家中一匹与胡七所藏四匹均为布店原绢，逐匹归还。',mistake:'把原罪说成不必还绢，或把还绢当作自动免罪。',source:'《唐律疏议》卷五·正赃犹征',url:'https://zh.wikisource.org/wiki/唐律疏議/卷第五'},
+    review: {title:'县署拟断与送州覆审',rule:'唐代《狱官令》所载程序中，杖罪以下可由县决；徒刑以上由县断定后送州覆审。这里是县署拟断意见，不是在堂上越权终定徒刑。',fact:'胡七涉及五匹共盗的徒刑判断，须把查明的事实与拟断卷宗送州覆审。',mistake:'把县令当场宣读的意见写成已经完成的最终徒刑裁判。',source:'《狱官令》引文及唐代审判程序研究',url:'https://www.aisixiang.com/data/122091.html'}
+  };
+  const lawAtNode = {
+    first_join:['theft','joint'],base_right:['theft','joint'],base_wrong:['theft','joint'],
+    principal_choice:['roles'],principal_right:['roles'],principal_wrong:['roles'],
+    confess_choice:['surrender','owner'],verify_time:['surrender','owner'],law_turn:['surrender','owner','restitution'],
+    law_choice:['restitution'],law_right:['restitution','review'],law_wrong:['restitution'],
+    final_choice:['review'],balance_worker:['review']
+  };
+  const portraits = {杜承远:'du',沈安:'shen',胡七:'hu',沈母:'mother',阿成:'acheng',县令:'magistrate'};
+  const tenseScenes = new Set(['du_open','du_hurt','du_fear','need_missed','trace_hu','principal_wrong','law_wrong','ending_error']);
 
   function shell() {
     $('#newCaseGame')?.remove();
@@ -124,10 +143,14 @@
     const step = actNumber(node.act);
     const progress = `<div class="fs-progress" aria-label="剧情进度">${Array.from({length:7}, (_,i) => `<span class="${i<=step?'on':''}"></span>`).join('')}</div>`;
     const law = node.law ? `<div class="fs-law"><span>律书角签</span>${esc(node.law)}</div>` : '';
+    const character = portraits[node.speaker];
+    const portrait = character ? `<div class="fs-portrait fs-portrait-${character} ${tenseScenes.has(game.node)?'is-tense':'is-calm'}" role="img" aria-label="${esc(node.speaker)}立绘"><span>${esc(node.speaker)}</span></div>` : '';
+    const lawLinks = lawAtNode[game.node] ? `<div class="fs-law-links" aria-label="本幕相关律文">${lawAtNode[game.node].map(key => `<button type="button" class="fs-law-link" data-law="${key}">查看律文 · ${esc(lawCards[key].title)}</button>`).join('')}</div>` : '';
     const buttons = node.choices ? `<div class="fs-choices">${node.choices.map((choice,i) => `<button type="button" class="fs-choice" data-choice="${i}"><i>${'甲乙丙丁'[i]}</i><span>${esc(choice.label)}</span></button>`).join('')}</div>` : `<button type="button" class="fs-next" id="fsNext">${end ? (node.retry?'返回关键一幕':'查看结案札记') : '继续　›'}</button>`;
-    $('#fsStage').innerHTML = `<div class="fs-place"><span>唐 · 某州属县</span><h1>${esc(node.place)}</h1><p>一包五匹绢，让从宽与追偿同入一卷。</p></div>
-      <article class="fs-dialogue ${end?'is-ending':''}"><div class="fs-chapter">${esc(node.act)} · ${esc(node.title)} ${progress}</div><div class="fs-speaker">${esc(node.speaker)}</div><p class="fs-text">${esc(node.text)}</p>${law}${buttons}<div class="fs-footnote">自动存卷 · 你的选择不会改写既定案情</div></article>`;
+    $('#fsStage').innerHTML = `<div class="fs-place"><span>唐 · 某州属县</span><h1>${esc(node.place)}</h1><p>一包五匹绢，让从宽与追偿同入一卷。</p></div>${portrait}
+      <article class="fs-dialogue ${end?'is-ending':''}"><div class="fs-chapter">${esc(node.act)} · ${esc(node.title)} ${progress}</div><div class="fs-speaker">${esc(node.speaker)}</div><p class="fs-text">${esc(node.text)}</p>${law}${lawLinks}${buttons}<div class="fs-footnote">自动存卷 · 你的选择不会改写既定案情</div></article>`;
     $$('.fs-choice').forEach(button => button.onclick = () => choose(Number(button.dataset.choice)));
+    $$('.fs-law-link').forEach(button => button.onclick = () => showLawCard(button.dataset.law));
     const next = $('#fsNext'); if (next) next.onclick = end ? () => end ? endingPanel(node) : null : advance;
     if (end && !game.ending) {
       game.ending = node.ending;
@@ -161,6 +184,16 @@
     layer.innerHTML = `<div class="fs-panel" role="dialog" aria-modal="true">${html}<button class="fs-close" type="button">合卷</button></div>`;
     layer.hidden = false;
     layer.querySelector('.fs-close').onclick = () => { layer.hidden = true; layer.innerHTML = ''; };
+  }
+  function showLawCard(key) {
+    const card = lawCards[key];
+    if (!card) return;
+    overlay(`<small>第六卷 · 唐代法制史资料卡</small><h2>${esc(card.title)}</h2>
+      <p class="fs-law-card-rule">${esc(card.rule)}</p>
+      <h3>本案要查明</h3><p>${esc(card.fact)}</p>
+      <h3>容易误判</h3><p>${esc(card.mistake)}</p>
+      <p class="fs-law-card-source">史料核对：<a href="${card.url}" target="_blank" rel="noopener noreferrer">${esc(card.source)} ↗</a></p>
+      <p class="fs-muted">律文依据与程序研究见上方链接；人物、字据、对白和具体案情为教学虚构。现代刑法只供课后比较，不能直接当作唐律适用。</p>`);
   }
   function journal() {
     overlay(`<small>随时可查 · 不影响剧情</small><h2>第六卷案卷</h2><p>初步罪名是窃盗五匹。审理须分别查：共盗总赃、谁先造意、向财主首露的时间与内容、五匹原绢是否归还。救母动机解释处境，不自动成为法定减刑事由。</p><h3>你的选择</h3><ol>${game.record.length ? game.record.map(x => `<li>${esc(x.act)}：${esc(x.choice)}</li>`).join('') : '<li>尚未落笔。</li>'}</ol><p class="fs-muted">人物与案情为教学虚构；律条以《唐律疏议》原文为据。</p>`);

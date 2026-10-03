@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171411">
+  <title>第三卷 · 少了一斗的粟</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="story.js"></script>
+</head>
+<body>
+  <main class="game" aria-label="少了一斗的粟互动叙事游戏">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="shade"></div>
+    <header class="hud">
+      <div class="chapter"><span class="chapter-mark">三</span><span id="chapter-text">第三卷 · 安静的县市</span><small class="fiction-label">教学虚构</small></div>
+      <div class="hud-actions">
+        <button id="source-button" class="hud-button" type="button" hidden>史料</button>
+        <button id="restart-button" class="hud-button" type="button" title="从头重玩">重来</button>
+        <a class="hud-button home-button" href="../index.html?map=1" title="返回十案图">十案图</a>
+      </div>
+    </header>
+    <div id="place" class="place"></div>
+    <div id="memory-label" class="memory-label" hidden>阿叶的回忆 · 非全知画面</div>
+    <div id="portraits" class="portraits" aria-hidden="true"></div>
+    <section id="task-layer" class="task-layer" hidden aria-live="polite">
+      <div class="task-content"><span id="task-count"></span><h2 id="task-title"></h2><p id="task-description"></p><button id="task-next" type="button">进入下一幕 <span aria-hidden="true">›</span></button></div>
+    </section>
+    <section class="dialogue" aria-live="polite">
+      <div class="speaker-line"><span id="speaker"></span><span id="beat"></span></div>
+      <p id="line" class="line"></p>
+      <div id="choice-list" class="choice-list"></div>
+      <div class="dialogue-foot"><span id="hint">自动存档</span><button id="next-button" class="next-button" type="button">继续 <span aria-hidden="true">›</span></button></div>
+      <div id="end-actions" class="end-actions" hidden><button id="end-replay" type="button">重玩第三卷</button><a href="../index.html?map=1">返回十案图</a></div>
+    </section>
+    <div id="source-overlay" class="overlay" hidden>
+      <article class="source-sheet" role="dialog" aria-modal="true" aria-labelledby="source-title">
+        <div class="source-top"><span id="source-era">秦代史料 · 可选阅读</span><button id="source-close" type="button" aria-label="关闭资料卡">×</button></div>
+        <h2 id="source-title"></h2>
+        <div id="source-body"></div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

@@ -2,7 +2,24 @@
   const order=[0,1,8,2,3,9,4,5,6,7]; window.tenCaseOrder=order;
   const labels=['一','二','三','四','五','六','七','八','九','十'];
   const books={
-    8:{id:8,kind:'qin-story',era:'秦统一后·某县',title:'少了一斗的粟',sub:'重刑、事实查验与市场信任'},
+    8:{
+      id:8,kind:'qin',edition:'qin-v4',era:'秦朝·某县',title:'一纸重令',sub:'重刑威慑、军期与长期治理',role:'秦朝某县令',
+      intro:'前线余粮只够七日。一支粮队逾期未至，郡府军令催到县署。今夜颁布的命令，会影响粮队赶路，也会影响他们下一次遇险时愿不愿意如实报告。',
+      facts:[['军情与军期','前线粮食只够七日，补给延误会影响军中供给。'],['秦的治理','秦以统一法令、户籍、官吏考核和赏罚体系组织基层治理；法律执行与国家动员紧密相连。'],['道路与信息','暴雨造成山道落石。县署若迟迟收不到报告，就无法及时判断改道、调粮或救援。'],['人物处境','领队蒙渠怕因误期受责，车夫阿梁受伤，粮夫石父私藏一袋粮，里正担心整队连带受责。']],
+      cast:[['蒙渠','粮队领队','熟悉路线，须对调度和报险决策负责；他知道山道受阻，却担心上报后先被按误期追责。','我只想再等半日，等路通了再说。'],['阿梁','受伤车夫','亲历落石和车辆受困，伤势使他无法驾车；他曾建议派人步行报信。','车不能走，人未必不能走。'],['石父','粮夫','参与搬运，曾劝队长不要报县，后来又私藏一袋军粮；他的个人行为不能代表全队。','若全队都要受责，我总得先保住家里。'],['里正','基层见证人','熟悉所属里伍与粮队关系，能提供基层信息，也提醒县令互保可能夹带私怨。','共同具结能让消息来得快，也会让人怕被邻里牵连。']],
+      opening:[['严刑催运令','“粮队逾期者，先按误军登记；同队里伍连带受责，不得以风雨为辞。”','短期内明确军期并加强威慑；若灾情也先受罚，人们可能选择隐瞒。'],['先报险、后核验令','“山道遇阻者，先遣一人持木牌报县；县署验明后另定期限，虚报仍究。”','让县署更早知道险情并决定改道；核验需要人手，粮运也可能晚到。'],['领队分责令','“先查领队调度与报险行为，再按知情、协助及实际行为分别登记，不先累及全队。”','把责任与实际行为相连；命令更细，执行和调查也更费时。']],
+      outcome:{'严刑催运令':'其余粮队冒雨赶路，粮仓暂时得到补给。账册上的误期记录减少；失期粮队却没有及时报县，县署仍不知道山道是否断绝。','先报险、后核验令':'一名信使带回断桥消息，县署及时改道调车。另一支失期粮队仍留下未送出的报险木牌：报险渠道存在，不代表恐惧马上消失。','领队分责令':'粮队开始分别登记受伤、灾阻、迟报与缺粮。情况更清楚，但仓吏提醒县令，逐项核验需要时间。'},
+      evidence:[['落石与伤布','阿梁左腿受伤，伤布沾有新鲜石屑。','支持山道附近发生落石、阿梁受伤。','不能证明所有粮车都无法通行，也不能证明任何人都无法步行报信。'],['陷泥车轮','粮车深陷泥中，岔路留有一串浅而连续的脚印。','支持粮车一度受困，且附近有人曾沿岔路步行。','不能证明脚印属于哪位粮夫，也不能单独证明领队何时知道道路情况。'],['未送木牌','蒙渠写好“山道崩阻”的木牌，却留在车辕夹层；木牌边缘已被雨水浸软。','支持领队知道险情，并曾考虑向县署报告但没有送出。','不能单独证明他故意隐瞒；也不能替代对“为何等待、能否派人”的追问。'],['石洞粮袋','石洞里找到一袋拆封军粮，粮袋印记与军粮册相符；袋口有单人搬运留下的拖痕。','支持有人接触并私藏了与军粮册相符的一袋粮。','不能仅凭粮袋认定具体行为人，更不能推定整队共同侵吞；仍要结合供述和接触机会核实。']],
+      inquiry:[['为何没有报险','追问木牌为何未送、是谁提出等待、报险后会受到什么处置。','蒙渠担心先被登记误军；阿梁曾建议步行报信；石父是否劝阻仍须单独核实。'],['道路是否全断','勘验主路、岔路和伤者行动能力，区分车辆受困与人员无法报信。','主路确被落石阻断，粮车无法继续；岔路可供步行，阿梁的伤势也已确认。'],['谁私藏军粮','核对军粮册、封记与石洞粮袋，分别询问每个人接触粮袋的时间。','石父承认藏了一袋，其他三人否认知情；私藏事实成立，不能用集体连坐替代个别查明。']],
+      confrontations:[
+        {question:'木牌已经写好，为什么没有送回县署？',lines:[['蒙渠','“令上先记误军。我怕一报险，先问的还是谁逾期。”'],['阿梁','“我劝他派人回县。腿伤了车不能走，人能走。”'],['石父','“我说过别报。我以为报了，全队都要受责。”'],['里正','“互保能让人彼此监督，也可能让人因为害怕牵连而闭口。”']]},
+        {question:'主路断了，岔路还能不能报信？',lines:[['阿梁','“车过不去，人能走。我伤了腿，仍能指路。”'],['蒙渠','“我担心派走一个人，剩下的人更赶不上军期。”'],['传令吏','“县署若早知道断桥，或许能调车改道。”'],['里正','“灾阻是真的，迟报也是真的；两件事可以同时查。”']]},
+        {question:'石洞里的粮袋是谁藏的？',lines:[['石父','“是我拿的，只有一袋。别人没有帮我。”'],['蒙渠','“我知道缺粮，却不知道他把粮藏在石洞。”'],['阿梁','“别把我受伤、他迟报和石父私藏写成同一件事。”'],['里正','“若整队一同受责，个人行为反而更难从人群里分清。”']]}
+      ],
+      reports:[['一律重责，强调军期','“先守军期，以严令催运；灾阻及个人行为留待后核。”','命令整齐、执行迅速，但恐惧可能让人不敢及时报告。','令严而讯息塞','其余粮队冒雨赶路，眼前补给较快。下一次断桥时，粮队先担心如何免责，县署在粮车失联后才得知险情。账册看似整齐，治理者却失去真实消息。'],['灾阻、失职、侵吞分别处理','“道路受阻和伤病据实登记；领队知险未报依职责究责；私藏军粮者按其个人行为处理，其余人不因未审事实连带。”','维持军期，同时区分灾害、失职与侵吞；需要核验，也要求官府保留报险渠道。','分责而令行','呈报稍晚，军粮改道后一日抵达。县署据实记录山道中断、领队迟报和石父私藏，未把受伤者与全队一并归责。后来粮队遇险先派人报县，官府得以及时改道调粮。'],['一概宽宥，优先安抚粮队','“暴雨山崩，粮队皆免追问；藏粮也以饥困为由不再核验。”','短期安抚了粮队，但事实和责任被一并放下，难以建立下一次可遵循的规则。','宽宥而纲失','粮队情绪暂缓，石父把粮袋交回。可县署没有查清迟报原因，也没有说明下次遇险应如何报告。后来类似问题仍要临时处置，灾害、失职和侵吞容易混为一谈。']],
+      knowledge:['秦以统一法令和严密行政体系提高动员、执行能力。','赏罚和责任制度可以带来短期服从，但不能自动换来真实信息与长期合作。','灾阻、未报险、受伤和个人侵吞是不同事实，应分别调查、说明责任。','有法律制度不等于治理效果必然最好；评价秦制要同时看到其组织能力与重刑峻法的代价。'],
+      boundary:'秦朝行政动员、统一法令、户籍和赏罚制度属于历史背景。粮队、县令、暴雨、人物与对话均为课堂教学重构，不对应一宗真实秦代案件或一条可直接引用的秦律条文。'
+    },
     9:{
       id:9,kind:'tang',era:'唐·长安',title:'夜半药铺案',sub:'律疏结合、首从与少年责任',role:'长安县法曹参军',
       intro:'晨钟刚响，少年携两包药材被带到县署。店主账册记有三包待交药材，巷口还出现过一名成年男子。第一眼像是简单盗案，但案卷必须把行为、年龄、损失与情理背景分别写清。',
@@ -41,11 +58,7 @@
     document.getElementById('ncMain').innerHTML=html;window.scrollTo(0,0)
   }
   function option(text,detail,call,i){return `<button class="nc-option" onclick="${call}"><b>${letter(i)}</b>${esc(text)}<small>${esc(detail)}</small></button>`}
-  function start(id){
-    state.current=id;state.view="custom";localStorage.setItem("lvmai-full-v4",JSON.stringify(state));
-    if(id===8){window.location.href='./volume-three/index.html';return}
-    document.querySelectorAll('.screen').forEach(el=>el.classList.add('hidden'));book=books[id];current=load(id);shell();render()
-  }
+  function start(id){document.querySelectorAll('.screen').forEach(el=>el.classList.add('hidden'));state.current=id;state.view="custom";localStorage.setItem("lvmai-full-v4",JSON.stringify(state));book=books[id];current=load(id);shell();render()}
   function render(){if(current.phase==='brief')return brief();if(current.phase==='open')return openOrder();if(current.phase==='outcome')return outcome();if(current.phase==='investigate')return investigate();if(current.phase==='confront')return qinConfront();if(current.phase==='legal')return legal();if(current.phase==='ruling')return ruling();return ending()}
   function brief(){stage(`<section class="nc-panel"><div class="nc-kicker">时代入局 · ${book.role}</div>${progress(0)}<h1>${book.title}</h1><p class="nc-lead">${book.intro}</p><div class="nc-facts">${book.facts.map((f,i)=>`<button class="nc-fact ${current.seen.includes('f'+i)?'seen':''}" onclick="ncFact(${i})"><b>${f[0]}</b><span>${current.seen.includes('f'+i)?f[1]:'点击查阅案前背景'}</span></button>`).join('')}</div><div class="nc-actions">${current.seen.length===book.facts.length?'<button class="nc-primary" onclick="ncOpenOrder()">进入县署议事</button>':'<button class="nc-secondary" disabled>请先查阅四份案前背景</button>'}</div></section>`)}
   function openOrder(){
@@ -88,7 +101,7 @@
   function ending(){const choice=book.kind==='qin'?book.reports[current.ruling]:book.rulings[current.ruling];const title=choice[3],story=choice[4];stage(`<section class="nc-ending"><div class="nc-kicker">第${labels[order.indexOf(book.id)]}卷 · 归档结局</div><h1>${title}</h1><p class="nc-lead">${story}</p><article>${book.kind==='qin'?'<h2>课堂结论</h2><p>严厉命令可以形成短期威慑，也能服务于战争状态下的国家动员。若处罚使人认为报告、解释和合作都没有意义，官府得到的可能只剩表面的服从。评价秦朝法律，需要同时看到法制化成就与严刑峻法的代价。</p>':'<h2>县令合卷</h2><p>店主的药材返还和损失进入处理，少年的年龄和实际参与行为分别审查，成年人接应及是否造意继续依据证据核实。各方未必得到自己最期待的结果，但都能看见县令为何如此处理。</p>'}</article><div class="nc-tabs"><button class="on" onclick="ncTab(this,'learn')">法制史知识</button><button onclick="ncTab(this,'route')">我的选择</button><button onclick="ncTab(this,'boundary')">史实边界</button></div><div id="ncTabPanel" class="nc-tab-panel"></div><div class="nc-actions"><button class="nc-primary" onclick="ncExit()">归档并返回十案图</button><button class="nc-secondary" onclick="ncRestart()">重开本卷</button></div></section>`);tab(document.querySelector('.nc-tabs button'),'learn')}
   function tab(btn,type){document.querySelectorAll('.nc-tabs button').forEach(x=>x.classList.remove('on'));btn.classList.add('on');const panel=document.getElementById('ncTabPanel');if(type==='learn')panel.innerHTML=`<h2>本卷法脉札记</h2><ul>${book.knowledge.map(x=>`<li>${x}</li>`).join('')}</ul>`;if(type==='route')panel.innerHTML=`<h2>你的案卷轨迹</h2><ul>${current.logs.map(x=>`<li><b>${x.stage}</b>：${x.choice}<br><small>${x.note}</small></li>`).join('')}</ul>`;if(type==='boundary')panel.innerHTML=`<h2>史实与教学化虚构</h2><p>${book.boundary}</p>`}
   function finish(ruling){current.ruling=ruling;current.phase='ending';const choice=book.kind==='qin'?book.reports[ruling]:book.rulings[ruling];current.logs.push({stage:'最终意见',choice:choice[0],note:choice[2]});save();if(window.unlockVolume)window.unlockVolume(book.id,choice[3],current.logs);render()}
-  function map(){const grid=document.getElementById('caseGrid');if(!grid)return;grid.innerHTML='';order.forEach((id,position)=>{const custom=books[id];const c=custom||cases[id];const b=document.createElement('button');b.className=`case c${id} ${state.completed[id]?'done':''}`;if(id===8){b.style.backgroundImage="url('./shao-yidou/assets/场景/S03_集市量粮处.webp')";b.style.backgroundSize='cover';b.style.backgroundPosition='center'}b.innerHTML=`<div class="case-copy"><i>第${labels[position]}卷 · ${c.era}</i><h3>${c.title}</h3><p>${c.sub||c.theme||''}</p><span class="tag">${state.completed[id]?'重读案卷':'进入案件'}</span></div>`;b.onclick=()=>window.startCase(id);grid.appendChild(b)})}
+  function map(){const grid=document.getElementById('caseGrid');if(!grid)return;grid.innerHTML='';order.forEach((id,position)=>{const custom=books[id];const c=custom||cases[id];const b=document.createElement('button');b.className=`case c${id} ${state.completed[id]?'done':''}`;if(id===8){b.style.backgroundImage="url('./assets/qin-county-night.png')";b.style.backgroundSize='cover';b.style.backgroundPosition='center'}b.innerHTML=`<div class="case-copy"><i>第${labels[position]}卷 · ${c.era}</i><h3>${c.title}</h3><p>${c.sub||c.theme||''}</p><span class="tag">${state.completed[id]?'重读案卷':'进入案件'}</span></div>`;b.onclick=()=>window.startCase(id);grid.appendChild(b)})}
   window.tenCaseBooks=books;
   const legacyStart=window.startCase,legacyContinue=window.continueGame;
   window.startCase=id=>books[id]?start(id):legacyStart(id);
